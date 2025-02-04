@@ -1,13 +1,15 @@
 let text=[
-"abcdefgh",
-"mbcdefgh",
-"ebcdefgh",
-"tbcdefgh",
-"hbcdefgh",
-"ybcdefgh",
-"sbcdefgh",
-"tbcdefgh"
+"amkalsfc",
+"mpalendf",
+"ebapsung",
+"tpwoendf",
+"hetygfis",
+"yedodlnl",
+"stfjsodp",
+"tpceuans"
 ]
+let angleList=[0,45,90,135,180,225,270,315]
+let degList=[]
 let parents=document.querySelectorAll('.parent')
 parents.forEach((parent,i)=>{
 generate(text[i],parent,i+1)
@@ -16,9 +18,29 @@ parent.style.width=`${val}vw`
 parent.style.height=`${val}vw`
 parent.style.zIndex=parents.length-i
 parent.setAttribute("index",i)
-parent.addEventListener("click",()=>{
-    rotate(parent,20)
+parent.setAttribute("active",0)
+parent.addEventListener("mousedown",(e)=>{
+    parent.setAttribute("active",1)
+    parents.forEach((paren)=>{
+        paren.setAttribute("active",0)
+        paren.childNodes.forEach((el)=>{
+            el.style.fontWeight="normal"
+        })
+    })
+    parent.childNodes.forEach((el)=>{
+        el.style.fontWeight="bold"
+    })
 })
+let rdeg=parseInt(Math.random() *8)
+rotate(parent,angleList[rdeg])
+degList.push(rdeg)
+})
+
+document.addEventListener("mousemove",(e)=>{
+    parents.forEach((parent,i)=>{
+        if(parent.getAttribute("active")=="1"){
+        }
+    })
 })
 
 function rotate(ele,deg){

@@ -2,6 +2,7 @@ body{
 display:flex;
 justify-content:center; 
 align-items:center; 
+background-color: #dc94f4;
 }
 .parent{
     margin: auto;
@@ -11,7 +12,6 @@ align-items:center;
     position: absolute;
     transform: scale(0.4);
     border-radius:500%;
-    outline:2px solid black;
 }
 .container{
 width:100vw;
@@ -26,4 +26,5 @@ align-items:center;
     margin: auto;
     font-size: 50px;
     font-family: monospace;
+    user-select: none;
 }
