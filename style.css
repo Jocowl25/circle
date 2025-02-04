@@ -27,4 +27,5 @@ align-items:center;
     font-size: 50px;
     font-family: monospace;
     user-select: none;
+    cursor:pointer;
 }
