@@ -39,15 +39,41 @@ degList.push(angleList[rdeg])
 document.addEventListener("keydown",(e)=>{
     parents.forEach((parent,i)=>{
         if(parent.getAttribute("active")=="1"){
-            if(e.key=="ArrowLeft"){
+            if(e.key=="ArrowDown"&&i>0){
+                parents.forEach((paren)=>{
+                    paren.setAttribute("active",0)
+                    paren.childNodes.forEach((el)=>{
+                        el.style.fontWeight="normal"
+                    })
+                })
+                parents[i-1].setAttribute("active",1)
+                parents[i-1].childNodes.forEach((el)=>{
+                    el.style.fontWeight="bold"
+                })
+            }else if(e.key=="ArrowUp"&&i<parents.length){
+                parents.forEach((paren)=>{
+                    paren.setAttribute("active",0)
+                    paren.childNodes.forEach((el)=>{
+                        el.style.fontWeight="normal"
+                    })
+                })
+                parents[i+1].setAttribute("active",1)
+                parents[i+1].childNodes.forEach((el)=>{
+                    el.style.fontWeight="bold"
+                })
+            }else if(e.key=="ArrowLeft"){
                 degList[i]-=22.5;
+                rotate(parent,degList[i])
+                parent.childNodes.forEach((el)=>{
+                    el.style.fontWeight="bold"
+                })
             }else if(e.key=="ArrowRight"){
                 degList[i]+=22.5;
-            }
                 rotate(parent,degList[i])
-            parent.childNodes.forEach((el)=>{
-                el.style.fontWeight="bold"
-            })
+                parent.childNodes.forEach((el)=>{
+                    el.style.fontWeight="bold"
+                })
+            }
         }
     })
 })

@@ -3,6 +3,7 @@ display:flex;
 justify-content:center; 
 align-items:center; 
 background-color: #dc94f4;
+overflow:hidden;
 }
 .parent{
     margin: auto;
@@ -10,7 +11,7 @@ background-color: #dc94f4;
     justify-content:center; 
 align-items:center;    
     position: absolute;
-    transform: scale(0.4);
+    transform: scale(0.55);
     border-radius:500%;
 }
 .container{
@@ -24,7 +25,7 @@ align-items:center;
     color:black;
     position: absolute;
     margin: auto;
-    font-size: 50px;
+    font-size: 70px;
     font-family: monospace;
     user-select: none;
     cursor:pointer;
