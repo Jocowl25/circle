@@ -5,20 +5,25 @@ align-items:center;
 }
 .parent{
     margin: auto;
-    width: 25vw;
-    height: 25vw;
     display: flex;
+    justify-content:center; 
+align-items:center;    
     position: absolute;
-    top:calc(50% - 12.5vw);
+    transform: scale(0.4);
+    border-radius:500%;
+    outline:2px solid black;
 }
-p{
-    width: 10px;
-    height: 50%;
+.container{
+width:100vw;
+height:100vh;
+display:flex;
+justify-content:center; 
+align-items:center; 
+}
+.para, p{
+    color:black;
     position: absolute;
-    left: 0;
-    right: 0;
     margin: auto;
-    transform-origin: bottom center;
     font-size: 50px;
     font-family: monospace;
 }
