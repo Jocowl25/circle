@@ -1,12 +1,12 @@
 let text=[
-"amkalsfc",
-"mpalendf",
-"ebapsung",
-"tpwoendf",
-"hetygfis",
-"yedodlnl",
-"stfjsodp",
-"tpceuans"
+"abalicpb",
+"macotari",
+"elhvaler",
+"tlielest",
+"hoeaineh",
+"yovbadnd",
+"snelnata",
+"tsdeorsy"
 ]
 let angleList=[0,45,90,135,180,225,270,315]
 let degList=[]
@@ -20,25 +20,34 @@ parent.style.zIndex=parents.length-i
 parent.setAttribute("index",i)
 parent.setAttribute("active",0)
 parent.addEventListener("mousedown",(e)=>{
-    parent.setAttribute("active",1)
     parents.forEach((paren)=>{
         paren.setAttribute("active",0)
         paren.childNodes.forEach((el)=>{
             el.style.fontWeight="normal"
         })
     })
+    parent.setAttribute("active",1)
     parent.childNodes.forEach((el)=>{
         el.style.fontWeight="bold"
     })
 })
 let rdeg=parseInt(Math.random() *8)
 rotate(parent,angleList[rdeg])
-degList.push(rdeg)
+degList.push(angleList[rdeg])
 })
 
-document.addEventListener("mousemove",(e)=>{
+document.addEventListener("keydown",(e)=>{
     parents.forEach((parent,i)=>{
         if(parent.getAttribute("active")=="1"){
+            if(e.key=="ArrowLeft"){
+                degList[i]-=22.5;
+            }else if(e.key=="ArrowRight"){
+                degList[i]+=22.5;
+            }
+                rotate(parent,degList[i])
+            parent.childNodes.forEach((el)=>{
+                el.style.fontWeight="bold"
+            })
         }
     })
 })
