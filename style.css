@@ -26,6 +26,13 @@ display:flex;
 justify-content:center; 
 align-items:center; 
 }
+.win{
+    display:none;
+    font-size:25vw;
+    z-index:-100;
+    opacity:25%;
+    color:rebeccapurple;
+}
 .para, p{
     color:black;
     position: absolute;

@@ -75,12 +75,15 @@ document.addEventListener("keydown",(e)=>{
                 found=true
             }else if(e.key=="ArrowLeft"){
                 degList[i]-=22.5;
+                degList[i]=degList[i]%360
+                //alert(Math.abs(degList[i]%360))
                 rotate(parent,degList[i])
                 parent.childNodes.forEach((el)=>{
                     el.style.fontWeight="bold"
                 })
             }else if(e.key=="ArrowRight"){
                 degList[i]+=22.5;
+                degList[i]=degList[i]%360
                 rotate(parent,degList[i])
                 parent.childNodes.forEach((el)=>{
                     el.style.fontWeight="bold"
@@ -88,6 +91,9 @@ document.addEventListener("keydown",(e)=>{
             }
         }
     })
+    if (degList.every((deg)=>deg==degList[0])){
+        document.querySelector(".win").style.display="block"
+    }
 })
 
 function rotate(ele,deg){
