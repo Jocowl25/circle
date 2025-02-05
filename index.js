@@ -19,6 +19,16 @@ parent.style.height=`${val}vw`
 parent.style.zIndex=parents.length-i
 parent.setAttribute("index",i)
 parent.setAttribute("active",0)
+parent.addEventListener("mouseover",(e)=>{
+    parent.childNodes.forEach((el)=>{
+        el.style.textDecoration="underline"
+    })
+})
+parent.addEventListener("mouseleave",(e)=>{
+    parent.childNodes.forEach((el)=>{
+        el.style.textDecoration=""
+    })
+})
 parent.addEventListener("mousedown",(e)=>{
     parents.forEach((paren)=>{
         paren.setAttribute("active",0)
@@ -37,8 +47,9 @@ degList.push(angleList[rdeg])
 })
 
 document.addEventListener("keydown",(e)=>{
+    let found=false
     parents.forEach((parent,i)=>{
-        if(parent.getAttribute("active")=="1"){
+        if(parent.getAttribute("active")=="1"&&!found){
             if(e.key=="ArrowDown"&&i>0){
                 parents.forEach((paren)=>{
                     paren.setAttribute("active",0)
@@ -50,7 +61,7 @@ document.addEventListener("keydown",(e)=>{
                 parents[i-1].childNodes.forEach((el)=>{
                     el.style.fontWeight="bold"
                 })
-            }else if(e.key=="ArrowUp"&&i<parents.length){
+            }else if(e.key=="ArrowUp"&&i<parents.length-1){
                 parents.forEach((paren)=>{
                     paren.setAttribute("active",0)
                     paren.childNodes.forEach((el)=>{
@@ -61,6 +72,7 @@ document.addEventListener("keydown",(e)=>{
                 parents[i+1].childNodes.forEach((el)=>{
                     el.style.fontWeight="bold"
                 })
+                found=true
             }else if(e.key=="ArrowLeft"){
                 degList[i]-=22.5;
                 rotate(parent,degList[i])

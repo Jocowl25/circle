@@ -13,6 +13,11 @@ align-items:center;
     position: absolute;
     transform: scale(0.55);
     border-radius:500%;
+    cursor:pointer;
+
+}
+.parent:hover{
+    text-decoration: underline;
 }
 .container{
 width:100vw;
