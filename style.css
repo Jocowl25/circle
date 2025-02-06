@@ -11,6 +11,8 @@ overflow:hidden;
     background-color: rebeccapurple;
     border-radius: 500px;
     z-index: 1000;
+    border:none;
+    cursor:help;
 }
 .circle:hover{
     background-color: rgb(89, 44, 134);
