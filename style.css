@@ -33,11 +33,13 @@ align-items:center;
     text-decoration: underline;
 }
 .container{
+top:0;
 width:100vw;
 height:100vh;
 display:flex;
+position:absolute;
 justify-content:center; 
-align-items:center; 
+align-items:center;
 }
 .win{
     display:none;

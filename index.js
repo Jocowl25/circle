@@ -4,7 +4,12 @@ let wordlist=[
 "achieved",
 
 ]
+let container=document.getElementById("parents")
+document.querySelector(".circle").addEventListener("click",()=>{
+container.innerHTML=''
 start()
+})
+
 function start(){
 //create word array
 let text=new Array(wordlist[0].length);
@@ -19,7 +24,7 @@ let parents=[]
 text.forEach(()=>{
     let par = document.createElement("div");
     par.className = "parent";
-    document.body.appendChild(par)
+    container.appendChild(par)
     parents.push(par)
 })
 //create different angles
@@ -30,7 +35,6 @@ while(current<360){
     angleList.push(current)
     current+=angleUnit
 }
-console.log(angleList)
 let degList=[]
 //set up parents
 parents.forEach((parent,i)=>{
@@ -41,17 +45,17 @@ parent.style.height=`${val}vw`
 parent.style.zIndex=parents.length-i
 parent.setAttribute("index",i)
 parent.setAttribute("active",0)
-parent.addEventListener("mouseover",(e)=>{
+parent.addEventListener("mouseover",()=>{
     parent.childNodes.forEach((el)=>{
         el.style.textDecoration="underline"
     })
 })
-parent.addEventListener("mouseleave",(e)=>{
+parent.addEventListener("mouseleave",()=>{
     parent.childNodes.forEach((el)=>{
         el.style.textDecoration=""
     })
 })
-parent.addEventListener("mousedown",(e)=>{
+parent.addEventListener("mousedown",()=>{
     parents.forEach((paren)=>{
         paren.setAttribute("active",0)
         paren.childNodes.forEach((el)=>{
@@ -147,3 +151,5 @@ for (let i = 0; i < len; i++) {
     parent.appendChild(paragraph);
 }
 }
+//start the game
+start()
