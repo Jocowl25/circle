@@ -4,6 +4,8 @@ let wordlist=[
 "achieved",
 
 ]
+start()
+function start(){
 //create word array
 let text=new Array(wordlist[0].length);
 text=text.fill("")
@@ -12,7 +14,6 @@ for(let i=0;i<wordlist[0].length;i++){
         text[i]=text[i]+ele.charAt(i)
     })
 }
-console.log(text)
 //create parent divs
 let parents=[]
 text.forEach(()=>{
@@ -120,6 +121,7 @@ document.addEventListener("keydown",(e)=>{
     }
 })
 
+}
 function rotate(ele,deg){
     ele.childNodes.forEach((el,i)=>{
         let len=ele.childNodes.length

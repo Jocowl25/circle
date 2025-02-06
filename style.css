@@ -5,6 +5,19 @@ align-items:center;
 background-color: #dc94f4;
 overflow:hidden;
 }
+.circle{
+    width:3vw;
+    height:3vw;
+    background-color: rebeccapurple;
+    border-radius: 500px;
+    z-index: 1000;
+}
+.circle:hover{
+    background-color: rgb(89, 44, 134);
+}
+.circle:active{
+    background-color: rgb(76, 37, 115);
+}
 .parent{
     margin: auto;
     display: flex;
@@ -32,6 +45,7 @@ align-items:center;
     z-index:-100;
     opacity:25%;
     color:rebeccapurple;
+    position: absolute;
 }
 .para, p{
     color:black;
