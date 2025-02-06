@@ -93,12 +93,10 @@ rotate(parent,angleList[rdeg])
 degList.push(angleList[rdeg])
 })
 //set up key listeners
-console.log("we")
 document.removeEventListener("keydown",downfunct)
 
 downfunct=(e)=>{
     let found=false
-    console.log(degList)
     parents.forEach((parent,i)=>{
         if(parent.getAttribute("active")=="1"&&!found){
             if(e.key=="ArrowDown"&&i>0){
