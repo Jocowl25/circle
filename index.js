@@ -2,28 +2,36 @@ let wordlist=[
 "amethyst",
 "balloons",
 "achieved",
-"loveable",
-"italiano",
-"calendar",
-"presents",
-"birthday"
+
 ]
-let text=new Array(8);
+//create word array
+let text=new Array(wordlist[0].length);
 text=text.fill("")
-for(let i=0;i<wordlist.length;i++){
+for(let i=0;i<wordlist[0].length;i++){
     wordlist.forEach((ele)=>{
         text[i]=text[i]+ele.charAt(i)
     })
 }
+console.log(text)
+//create parent divs
 let parents=[]
-wordlist.forEach(()=>{
+text.forEach(()=>{
     let par = document.createElement("div");
     par.className = "parent";
     document.body.appendChild(par)
     parents.push(par)
 })
-let angleList=[0,45,90,135,180,225,270,315]
+//create different angles
+let angleList=[]
+let angleUnit=360/wordlist.length;
+let current=0;
+while(current<360){
+    angleList.push(current)
+    current+=angleUnit
+}
+console.log(angleList)
 let degList=[]
+//set up parents
 parents.forEach((parent,i)=>{
 generate(text[i],parent,i+1)
 let val=(i+2)*25*0.4
@@ -54,11 +62,12 @@ parent.addEventListener("mousedown",(e)=>{
         el.style.fontWeight="bold"
     })
 })
-let rdeg=parseInt(Math.random() *8)
+let rdeg=parseInt(Math.random() *angleList.length)
 rotate(parent,angleList[rdeg])
 degList.push(angleList[rdeg])
 })
 console.log(degList)
+//set up key listeners
 document.addEventListener("keydown",(e)=>{
     let found=false
     console.log(degList);
@@ -88,17 +97,16 @@ document.addEventListener("keydown",(e)=>{
                 })
                 found=true
             }else if(e.key=="ArrowLeft"){
-                degList[i]+=-22.5;
+                degList[i]+=angleUnit/-2;
                 if(degList[i]<0){
                     degList[i]+=360
                 }
-                //alert(Math.abs(degList[i]%360))
                 rotate(parent,degList[i])
                 parent.childNodes.forEach((el)=>{
                     el.style.fontWeight="bold"
                 })
             }else if(e.key=="ArrowRight"){
-                degList[i]+=22.5;
+                degList[i]+=angleUnit/2;
                 degList[i]=degList[i]%360
                 rotate(parent,degList[i])
                 parent.childNodes.forEach((el)=>{
