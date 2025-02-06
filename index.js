@@ -9,7 +9,7 @@ document.querySelector(".circle").addEventListener("click",()=>{
 container.innerHTML=''
 start()
 })
-
+start()
 function start(){
 //create word array
 let text=new Array(wordlist[0].length);
@@ -151,5 +151,3 @@ for (let i = 0; i < len; i++) {
     parent.appendChild(paragraph);
 }
 }
-//start the game
-start()
