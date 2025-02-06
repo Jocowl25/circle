@@ -6,8 +6,8 @@ background-color: #dc94f4;
 overflow:hidden;
 }
 .circle{
-    width:3vw;
-    height:3vw;
+    width:2vw;
+    height:2vw;
     background-color: rebeccapurple;
     border-radius: 500px;
     z-index: 1000;
@@ -27,7 +27,6 @@ align-items:center;
     transform: scale(0.55);
     border-radius:500%;
     cursor:pointer;
-
 }
 .parent:hover{
     text-decoration: underline;
@@ -53,8 +52,9 @@ align-items:center;
     color:black;
     position: absolute;
     margin: auto;
-    font-size: 70px;
+    font-size: 50px;
     font-family: monospace;
     user-select: none;
+    -webkit-user-select: none;
     cursor:pointer;
 }

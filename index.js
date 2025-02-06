@@ -1,15 +1,36 @@
-let wordlist=[
-"amethyst",
-"balloons",
-"achieved",
-
-]
+let wordlist=[]
+let allwords=[]
+const separation=4
+const parentscale=0.3
+let downfunct=()=>{};
+download()
 let container=document.getElementById("parents")
 document.querySelector(".circle").addEventListener("click",()=>{
+document.querySelector(".win").style.display="none"
 container.innerHTML=''
+reset()
 start()
 })
-start()
+
+async function download(){
+    const response = await fetch('./common.json');
+    let wordjson = await response.json();
+    for(let i=3;i<13;i++){
+        allwords.push(wordjson[`n${i}`])
+    }
+    reset()
+    start()
+}
+function reset(){
+wordlist=[]
+let wordlength=parseInt(Math.random() * 10)
+let totalwords=parseInt(Math.random() * 10)
+let allwordnum=allwords[wordlength]
+wordlist.push(allwordnum[parseInt(Math.random() * allwordnum.length)])
+for(let i=0;i<=totalwords;i++){
+wordlist.push(allwordnum[parseInt(Math.random() * allwordnum.length)])
+}
+}
 function start(){
 //create word array
 let text=new Array(wordlist[0].length);
@@ -29,17 +50,17 @@ text.forEach(()=>{
 })
 //create different angles
 let angleList=[]
+let degList=[]
 let angleUnit=360/wordlist.length;
 let current=0;
 while(current<360){
     angleList.push(current)
     current+=angleUnit
 }
-let degList=[]
 //set up parents
 parents.forEach((parent,i)=>{
 generate(text[i],parent,i+1)
-let val=(i+2)*25*0.4
+let val=(i+2)*25*parentscale
 parent.style.width=`${val}vw`
 parent.style.height=`${val}vw`
 parent.style.zIndex=parents.length-i
@@ -71,11 +92,13 @@ let rdeg=parseInt(Math.random() *angleList.length)
 rotate(parent,angleList[rdeg])
 degList.push(angleList[rdeg])
 })
-console.log(degList)
 //set up key listeners
-document.addEventListener("keydown",(e)=>{
+console.log("we")
+document.removeEventListener("keydown",downfunct)
+
+downfunct=(e)=>{
     let found=false
-    console.log(degList);
+    console.log(degList)
     parents.forEach((parent,i)=>{
         if(parent.getAttribute("active")=="1"&&!found){
             if(e.key=="ArrowDown"&&i>0){
@@ -120,16 +143,16 @@ document.addEventListener("keydown",(e)=>{
             }
         }
     })
-    if (degList.every((deg)=>deg==degList[0])){
+    if (degList.every((deg)=>parseInt(deg)==parseInt(degList[0]))){
         document.querySelector(".win").style.display="block"
     }
-})
-
+}
+document.addEventListener("keydown",downfunct)
 }
 function rotate(ele,deg){
     ele.childNodes.forEach((el,i)=>{
         let len=ele.childNodes.length
-        let str=(parseInt(ele.getAttribute("index"))+1)*5.5
+        let str=(parseInt(ele.getAttribute("index"))+1)*separation
         let angle = (360 / len)*(Math.PI/180);
         let rad=deg*(Math.PI/180)
         el.style=`transform:translate(${(str)*Math.cos(angle*i+rad)}vw,${(str)*Math.sin(angle*i+rad)}vw)`
@@ -139,7 +162,7 @@ function rotate(ele,deg){
 function generate(text,parent,w){
 text = text.replace(/\s/g, "");
 const len = text.length;
-const wid=5.5;
+const wid=separation;
 const angle = (360 / len)*(Math.PI/180);
 for (let i = 0; i < len; i++) {
     paragraph = document.createElement("p");
