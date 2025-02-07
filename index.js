@@ -166,7 +166,6 @@ for (let i = 0; i < len; i++) {
     paragraph = document.createElement("p");
     paragraph.className = "para";
     paragraph.style = `transform:translate(${(wid*w)*Math.cos(angle*i)}vw,${(wid*w)*Math.sin(angle*i)}vw)`;
-    paragraph.setAttribute("trans",`${wid*w}`)
     charNode = document.createTextNode(text.charAt(i));
     paragraph.appendChild(charNode);
     parent.appendChild(paragraph);
