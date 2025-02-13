@@ -68,12 +68,16 @@ parent.setAttribute("index",i)
 parent.setAttribute("active",0)
 parent.addEventListener("mouseover",()=>{
     parent.childNodes.forEach((el)=>{
-        el.style.textDecoration="underline"
+        el.style.fontWeight="800"
     })
 })
 parent.addEventListener("mouseleave",()=>{
     parent.childNodes.forEach((el)=>{
-        el.style.textDecoration=""
+       if(parent.getAttribute("active")==0){
+        el.style.fontWeight="normal"
+       }else{
+        el.style.fontWeight="bold"
+       }
     })
 })
 parent.addEventListener("mousedown",()=>{
