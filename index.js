@@ -36,10 +36,24 @@ function start(){
 let text=new Array(wordlist[0].length);
 text=text.fill("")
 for(let i=0;i<wordlist[0].length;i++){
-    wordlist.forEach((ele)=>{
+    wordlist.forEach((ele,j)=>{
         text[i]=text[i]+ele.charAt(i)
     })
 }
+let textRot=new Array(wordlist[0].length);
+let textShift=new Array(wordlist[0].length);
+textShift=textShift.fill(0)
+const dash="-"
+textRot=textRot.fill(dash.repeat(text[0].length*2))
+textRot.forEach((ele,i)=>{
+    let textRotArr=textRot[i].split("")
+    textRotArr.forEach((val,j)=>{
+        if(j%2==0){
+            textRotArr[j]=text[i].charAt(j/2)
+        }
+    })
+    textRot[i]=textRotArr.join('')
+})
 //create parent divs
 let parents=[]
 text.forEach(()=>{
@@ -94,11 +108,36 @@ parent.addEventListener("mousedown",()=>{
 })
 let rdeg=parseInt(Math.random() *angleList.length)
 rotate(parent,angleList[rdeg])
+textRot[i]=swapLetters(textRot[i],rdeg)
+textShift[i]+=rdeg*2
 degList.push(angleList[rdeg])
 })
+//reset if everthing is the same
+if(win(0)){
+    reset()
+    start()
+}
+//find best circle for comparisons
+let comparison=0
+let mult=false;
+let compFound=false;
+degList.every((deg,i)=>{
+    mult=false
+//check if circle has pattern
+    for(let a=1;a<angleList.length*2;a++){
+        if(textRot[i]==swapLetters(textRot[i],a)){
+            mult=true
+            break;
+        }
+    }
+    //if it does, use next circle for comparison; otherwise keep current one
+    if(mult&&!compFound){
+        comparison++
+    }else{
+        compFound=true
+    }})
 //set up key listeners
 document.removeEventListener("keydown",downfunct)
-
 downfunct=(e)=>{
     let found=false
     parents.forEach((parent,i)=>{
@@ -126,30 +165,55 @@ downfunct=(e)=>{
                     el.style.fontWeight="bold"
                 })
                 found=true
-            }else if(e.key=="ArrowLeft"){
+            }else {
+                if(e.key=="ArrowLeft"){
                 degList[i]+=angleUnit/-2;
                 if(degList[i]<0){
                     degList[i]+=360
                 }
-                rotate(parent,degList[i])
-                parent.childNodes.forEach((el)=>{
-                    el.style.fontWeight="bold"
-                })
+                textRot[i]=swapLetters(textRot[i],-1)
+                textShift[i]-=1
+                if(textShift[i]<0){
+                    textShift[i]+=angleList.length*2
+                }
+
             }else if(e.key=="ArrowRight"){
-                degList[i]+=angleUnit/2;
+                degList[i]+=angleUnit/2; 
                 degList[i]=degList[i]%360
-                rotate(parent,degList[i])
-                parent.childNodes.forEach((el)=>{
-                    el.style.fontWeight="bold"
-                })
+                textRot[i]=swapLetters(textRot[i],1)
+                textShift[i]+=1
+                textShift[i]=textShift[i]%(angleList.length*2)
             }
+            rotate(parent,degList[i])
+            parent.childNodes.forEach((el)=>{
+                el.style.fontWeight="bold"
+            })
+        }
         }
     })
-    if (degList.every((deg)=>parseInt(deg)==parseInt(degList[0]))){
+    //if win
+    if(win(comparison)){
         document.querySelector(".win").style.display="block"
+        }
     }
-}
 document.addEventListener("keydown",downfunct)
+//win function
+function win(comparison){
+    return degList.every((deg,i)=>{
+         //actual comparisions
+         //check if rotation is the same
+         if(parseInt(deg)==parseInt(degList[comparison])){
+             return true
+         }
+         //if not:
+         //"reset" rotated circle
+         let tmpRot=swapLetters(textRot[i],angleList.length*2-textShift[i])
+         //check if current rotation is equivalent to "correct" rotation
+         if(textRot[i]==swapLetters(tmpRot,textShift[comparison])){
+             return true
+         }
+     })      
+ }
 }
 function rotate(ele,deg){
     ele.childNodes.forEach((el,i)=>{
@@ -160,7 +224,6 @@ function rotate(ele,deg){
         el.style=`transform:translate(${(str)*Math.cos(angle*i+rad)}vw,${(str)*Math.sin(angle*i+rad)}vw)`
     })
 }
-
 function generate(text,parent,w){
 text = text.replace(/\s/g, "");
 const len = text.length;
@@ -174,4 +237,17 @@ for (let i = 0; i < len; i++) {
     paragraph.appendChild(charNode);
     parent.appendChild(paragraph);
 }
+}
+function swapLetters(array,end){
+    let copy=array.split('')
+    if(end>0){
+    for(let i=0;i<end;i++){
+        copy.unshift(copy.pop())
+    }
+    }else{
+    for(let i=0;i<Math.abs(end);i++){
+        copy.push(copy.shift())
+    }
+    }
+    return copy.join("")
 }
