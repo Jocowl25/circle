@@ -114,6 +114,7 @@ degList.push(angleList[rdeg])
 })
 //reset if everthing is the same
 if(win(0)){
+    container.innerHTML=''
     reset()
     start()
 }
